@@ -83,7 +83,7 @@ task(for: 1, exercise: "ბიბლიოთეკის სიმულაც�
         }
         
         func searchForOwner(ownerIDToSearch: Int) -> Owner? {
-            owners.first { $0.ownerID == ownerIDToSearch } // returns a value not a Bool. that
+            owners.first { $0.ownerID == ownerIDToSearch } 
         }
         
         func booksBorrowedByOwner(owner: Owner) -> [Book] {
