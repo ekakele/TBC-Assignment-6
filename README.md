@@ -2,12 +2,15 @@
 TBC IT Academy | iOS development Course | Assignment #6
 
 ## Assignment Goal
-The objective of this assignment is to become acquainted with coding, refine coding abilities, and apply recently acquired knowledge in Swift Class & Inheritance.
+The assignment serves as a practical introduction to fundamental object-oriented programming (OOP) concepts including Swift classes, method customization through overriding, and the use of different kinds of initializers for object creation as well as the concept of abstract classes to prevent direct instantiation.
+
 The assignment covers the following topics: 
 * Class (main assignment)
     * create simulating library
     * create simulating e-commerce system 
-* Inheritance (additional optional assignment)
+* Inheritance (additional optional assignment #3)
+    *create a zoo model with diverse animal categories, each with its distinct attributes and behaviors.
+    
 
 
 
