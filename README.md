@@ -9,7 +9,7 @@ The assignment covers the following topics:
     * create simulating library
     * create simulating e-commerce system 
 * Inheritance (additional optional assignment #3)
-    *create a zoo model with diverse animal categories, each with its distinct attributes and behaviors.
+    * create a zoo model with diverse animal categories, each with its distinct attributes and behaviors
     
 
 
