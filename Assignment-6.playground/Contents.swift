@@ -5,13 +5,13 @@ task(for: 1, exercise: "ბიბლიოთეკის სიმულაც�
     //  1.1. შევქმნათ Class Book.  Properties: bookID(უნიკალური იდენტიფიკატორი Int), String title, String author, Bool isBorrowed.  Designated Init. Method რომელიც ნიშნავს წიგნს როგორც borrowed-ს. Method რომელიც ნიშნავს წიგნს როგორც დაბრუნებულს.
     
     class Book {
-        var bookID: Int
-        var title: String
-        var author: String
+        let bookID: Int
+        let title: String
+        let author: String
         var isBorrowed: Bool
         
         //by default isBorrowed property = false
-        init(bookID: Int, title: String, author: String, isBorrowed: Bool = false){
+        init(bookID: Int, title: String, author: String, isBorrowed: Bool = false) {
             self.bookID = bookID
             self.title = title
             self.author = author
@@ -30,7 +30,7 @@ task(for: 1, exercise: "ბიბლიოთეკის სიმულაც�
     //  1.2. შევქმნათ Class Owner  Properties: ownerId(უნიკალური იდენტიფიკატორი Int), String name, Books Array სახელით borrowedBooks.  Designated Init. Method რომელიც აძლევს უფლებას რომ აიღოს წიგნი ბიბლიოთეკიდან. Method რომელიც აძლევს უფლებას რომ დააბრუნოს წაღებული წიგნი.
     
     class Owner {
-        var ownerID: Int
+        let ownerID: Int
         var name: String
         var borrowedBooks: [Book]
         
@@ -75,11 +75,11 @@ task(for: 1, exercise: "ბიბლიოთეკის სიმულაც�
         }
         
         func booksAvailable() -> [Book] {
-            return books.filter { !$0.isBorrowed } //false
+            books.filter { !$0.isBorrowed } //false
         }
         
         func booksBorrowed() -> [Book] {
-            return books.filter { $0.isBorrowed } //true
+            books.filter { $0.isBorrowed } //true
         }
         
         func searchForOwner(ownerIDToSearch: Int) -> Owner? {
@@ -149,12 +149,12 @@ task(for: 1, exercise: "ბიბლიოთეკის სიმულაც�
 
 task(for: 2, exercise: "პატარა E-commerce სისტემა") {
     
-    //  1. შევქმნათ Class Product, შევქმნათ შემდეგი properties productID (უნიკალური იდენტიფიკატორი Int), String name, Double price. შევქმნათ Designated Init.
+    //  2.1. შევქმნათ Class Product, შევქმნათ შემდეგი properties productID (უნიკალური იდენტიფიკატორი Int), String name, Double price. შევქმნათ Designated Init.
     
     class Product {
-        var productID: Int
-        var name: String
-        var price: Double
+        let productID: Int
+        let name: String
+        let price: Double
         
         init(productID: Int, name: String, price: Double) {
             self.productID = productID
@@ -163,10 +163,10 @@ task(for: 2, exercise: "პატარა E-commerce სისტემა") {
         }
     }
     
-    //  2. შევქმნათ Class Cart Properties: cartID(უნიკალური იდენტიფიკატორი Int), Product-ების Array სახელად items. შევქმნათ Designated Init. Method იმისათვის რომ ჩვენს კალათაში დავამატოთ პროდუქტი. Method იმისათვის რომ ჩვენი კალათიდან წავშალოთ პროდუქტი მისი აიდით. Method რომელიც დაგვითვლის ფასს ყველა იმ არსებული პროდუქტის რომელიც ჩვენს კალათაშია.
+    //  2.2. შევქმნათ Class Cart Properties: cartID(უნიკალური იდენტიფიკატორი Int), Product-ების Array სახელად items. შევქმნათ Designated Init. Method იმისათვის რომ ჩვენს კალათაში დავამატოთ პროდუქტი. Method იმისათვის რომ ჩვენი კალათიდან წავშალოთ პროდუქტი მისი აიდით. Method რომელიც დაგვითვლის ფასს ყველა იმ არსებული პროდუქტის რომელიც ჩვენს კალათაშია.
     
     class Cart {
-        var cartID: Int
+        let cartID: Int
         var items: [Product]
         
         init( cartID: Int, items: [Product] = []) {
@@ -179,21 +179,15 @@ task(for: 2, exercise: "პატარა E-commerce სისტემა") {
         }
         
         func removeProductFromTheCart(itemId: Int)  {
-            if let index = items.firstIndex(where: { $0.productID == itemId }) {
-                items.remove(at: index) // finding the index of the product to remove based on its unique ID
-            }
+            items.removeAll { $0.productID == itemId }
         }
         
         func priceCounter() -> Double {
-            var totalPrice = 0.0
-            for item in items {
-                totalPrice += item.price
-            }
-            return totalPrice
+            items.reduce(0.0) { $0 + $1.price }
         }
     }
     
-    //    3. შევქმნათ Class User Properties: userID(უნიკალური იდენტიფიკატორი Int), String username, Cart cart. Designated Init. Method რომელიც კალათაში ამატებს პროდუქტს. Method რომელიც კალათიდან უშლის პროდუქტს. Method რომელიც checkout (გადახდის)  იმიტაციას გააკეთებს დაგვითვლის თანხას და გაასუფთავებს ჩვენს shopping cart-ს.
+    //  2.3. შევქმნათ Class User Properties: userID(უნიკალური იდენტიფიკატორი Int), String username, Cart cart. Designated Init. Method რომელიც კალათაში ამატებს პროდუქტს. Method რომელიც კალათიდან უშლის პროდუქტს. Method რომელიც checkout (გადახდის)  იმიტაციას გააკეთებს დაგვითვლის თანხას და გაასუფთავებს ჩვენს shopping cart-ს.
     
     class User {
         var userID: Int
@@ -221,7 +215,7 @@ task(for: 2, exercise: "პატარა E-commerce სისტემა") {
         }
     }
     
-    //    4. გავაკეთოთ იმიტაცია და ვამუშაოთ ჩვენი ობიექტები ერთად. შევქმნათ რამოდენიმე პროდუქტი. შევქმნათ 2 user-ი, თავისი კალათებით, დავუმატოთ ამ იუზერებს კალათებში სხვადასხვა პროდუქტები, დავბეჭდოთ price ყველა item-ის ამ იუზერების კალათიდან. და ბოლოს გავაკეთოთ სიმულაცია ჩექაუთის, დავაბეჭდინოთ იუზერების გადასხდელი თანხა და გავუსუფთაოთ კალათები.
+    //  2.4. გავაკეთოთ იმიტაცია და ვამუშაოთ ჩვენი ობიექტები ერთად. შევქმნათ რამოდენიმე პროდუქტი. შევქმნათ 2 user-ი, თავისი კალათებით, დავუმატოთ ამ იუზერებს კალათებში სხვადასხვა პროდუქტები, დავბეჭდოთ price ყველა item-ის ამ იუზერების კალათიდან. და ბოლოს გავაკეთოთ სიმულაცია ჩექაუთის, დავაბეჭდინოთ იუზერების გადასხდელი თანხა და გავუსუფთაოთ კალათები.
     
     let sunglasses = Product(productID: 1, name: "Sunglasses", price: 149.99)
     let belt = Product(productID: 2, name: "Belt", price: 58.6)
